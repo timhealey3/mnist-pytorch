@@ -50,18 +50,14 @@ class Training:
         with torch.no_grad(): 
             for X, y in self.test_dataloader:
                 # Forward pass
-                y_pred = self.model(X)
-                
+                y_pred = self.model(X)     
                 # Calculate loss
                 test_loss += self.loss_fn(y_pred, y).item()
-                
                 # Get predictions
                 _, predicted = torch.max(y_pred.data, 1)
-                
                 # Update counts
                 total += y.size(0)
                 correct += (predicted == y).sum().item()
-        
         # Calculate metrics
         avg_loss = test_loss / len(self.test_dataloader)
         accuracy = 100 * correct / total
